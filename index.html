@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Calendrier ASCA 1</title>
+<meta name="description" content="Matchs à venir et résultats d'ASCA 1 en M18 masculin, Championnat du Maine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout : feuille de match — en-tête équipe, prochain match en vedette, listes à venir / résultats, classement */
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --line:#dde3ec; --fg:#14213a; --muted:#5d6b82;
+  --accent:#1d4ed8; --accent-soft:#e3ebff; --ball:#f2b705;
+  --win:#13795b; --win-soft:#dcf3ea; --loss:#b4232c; --loss-soft:#fbe3e4; --wait:#8a6100; --wait-soft:#fdf1cf;
+  --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1424; --surface:#151f35; --line:#26334f; --fg:#e8edf7; --muted:#9aa8c2;
+  --accent:#7aa2ff; --accent-soft:#1c2a4d; --ball:#f5c842;
+  --win:#4fd1a1; --win-soft:#123528; --loss:#ff7b84; --loss-soft:#3a1a20; --wait:#f5c842; --wait-soft:#3a3016; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1424; --surface:#151f35; --line:#26334f; --fg:#e8edf7; --muted:#9aa8c2;
+  --accent:#7aa2ff; --accent-soft:#1c2a4d; --ball:#f5c842;
+  --win:#4fd1a1; --win-soft:#123528; --loss:#ff7b84; --loss-soft:#3a1a20; --wait:#f5c842; --wait-soft:#3a3016; color-scheme:dark}
+*{box-sizing:border-box}
+html{color-scheme:light}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-block:28px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+h1,h2{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:.01em}
+h1{font-size:clamp(2.4rem,7vw,3.4rem);line-height:1;font-weight:700}
+h2{font-size:1.5rem;font-weight:600;display:flex;align-items:baseline;gap:10px}
+h2 small{font-family:var(--f-body);font-size:.8rem;color:var(--muted);font-weight:500}
+.eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600}
+header{display:grid;gap:14px}
+.head-row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between}
+.team-pick{display:flex;gap:8px;align-items:center;font-size:.85rem;color:var(--muted)}
+select,button{font:inherit;font-size:.85rem;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+button{cursor:pointer;font-weight:600}
+button:hover{border-color:var(--accent);color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.stat b{font-family:var(--f-display);font-size:1.05rem;margin-right:4px}
+.sync{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.82rem;color:var(--muted)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block;margin-right:6px;vertical-align:middle}
+.dot.live{background:var(--win)} .dot.warn{background:var(--wait)}
+.notice{background:var(--wait-soft);color:var(--fg);border-radius:10px;padding:10px 14px;font-size:.85rem;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+/* Prochain match */
+.next{background:var(--accent);color:#fff;border-radius:16px;padding:22px;display:grid;gap:14px;position:relative;overflow:hidden}
+.next::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;border:14px solid rgba(255,255,255,.12)}
+.next .eyebrow{color:rgba(255,255,255,.8)}
+.next .vs{font-family:var(--f-display);font-size:clamp(1.6rem,5vw,2.3rem);font-weight:700;line-height:1.1;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.next .vs span.x{font-size:1rem;opacity:.7;font-weight:500}
+.next .meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.9rem}
+.next .when{font-weight:600}
+.count{display:inline-block;background:var(--ball);color:#14213a;font-weight:700;border-radius:999px;padding:2px 10px;font-size:.8rem}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .next{background:#1f3b8f}}
+:root[data-theme="dark"] .next{background:#1f3b8f}
+/* Listes */
+.list{display:grid;gap:10px}
+.match{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:86px 1fr auto;gap:14px;align-items:center}
+.match.exempt{opacity:.7}
+.date{font-variant-numeric:tabular-nums;display:grid;line-height:1.15}
+.date .d{font-family:var(--f-display);font-size:1.4rem;font-weight:700}
+.date .t{font-size:.8rem;color:var(--muted)}
+.body{min-width:0;display:grid;gap:4px}
+.teams{font-weight:500;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.teams .me{font-weight:700;color:var(--accent)}
+.teams .sep{color:var(--muted);font-size:.8rem}
+.sub{font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
+.tag{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:1px 6px;background:var(--accent-soft);color:var(--accent)}
+.sets{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);overflow-wrap:anywhere}
+.res{display:grid;justify-items:end;gap:4px;text-align:right}
+.score{font-family:var(--f-display);font-size:1.7rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.pill{font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.pill.V{background:var(--win-soft);color:var(--win)} .pill.D{background:var(--loss-soft);color:var(--loss)}
+.pill.A{background:var(--accent-soft);color:var(--accent)} .pill.W{background:var(--wait-soft);color:var(--wait)}
+.pill.E{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.empty{color:var(--muted);font-size:.9rem;padding:8px 0}
+/* Classement */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.88rem}
+th,td{padding:9px 10px;text-align:right;white-space:nowrap}
+th{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line)}
+th:nth-child(2),td:nth-child(2){text-align:left}
+td{border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+tr.me td{background:var(--accent-soft);font-weight:700}
+td.pts{font-family:var(--f-display);font-size:1.1rem;font-weight:700}
+footer{font-size:.8rem;color:var(--muted)}
+footer a{color:var(--accent)}
+@media (max-width:560px){
+  .match{grid-template-columns:1fr auto;grid-template-areas:"date res" "body body";gap:8px 12px}
+  .date{grid-area:date;grid-auto-flow:column;justify-content:start;gap:8px;align-items:baseline}
+  .res{grid-area:res} .body{grid-area:body}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">M18 Masculin 6×6 · Championnat du Maine · 2026/2027</div>
+    <div class="head-row">
+      <h1 id="teamTitle">ASCA 1</h1>
+      <label class="team-pick" for="teamSel">Équipe <select id="teamSel"></select></label>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="sync">
+      <span id="syncTxt"><span class="dot"></span>Chargement…</span>
+      <button id="refreshBtn" type="button" hidden>Actualiser maintenant</button>
+    </div>
+    <div class="notice" id="notice" hidden></div>
+  </header>
+
+  <section id="nextSec" aria-label="Prochain match"></section>
+
+  <section>
+    <h2>À venir <small id="upCount"></small></h2>
+    <div class="list" id="upcoming" style="margin-top:12px"></div>
+  </section>
+
+  <section>
+    <h2>Résultats <small id="pastCount"></small></h2>
+    <div class="list" id="past" style="margin-top:12px"></div>
+  </section>
+
+  <section>
+    <h2>Classement de la poule</h2>
+    <div class="tbl" style="margin-top:12px">
+      <table>
+        <thead><tr><th>#</th><th>Équipe</th><th>Pts</th><th>J</th><th>G</th><th>P</th><th>Sets</th><th>Points</th></tr></thead>
+        <tbody id="standings"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>Source : <a href="https://www.ffvbbeach.org/ffvbapp/resu/vbspo_calendrier.php?saison=2026%2F2027&amp;codent=PTPL72&amp;poule=18M&amp;division=&amp;tour=&amp;calend=COMPLET&amp;x=37&amp;y=7" target="_blank" rel="noopener">FFvolley – calendrier complet poule 18M</a>. Le calendrier est relu automatiquement sur le site FFvolley toutes les heures.</footer>
+</div>
+
+<script>
+/* ---------- Rendu ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const fmtDay = d => d.toLocaleDateString("fr-FR",{weekday:"short", day:"numeric", month:"short"});
+const fmtLong = d => d.toLocaleDateString("fr-FR",{weekday:"long", day:"numeric", month:"long", year:"numeric"});
+const fmtTime = d => d.toLocaleTimeString("fr-FR",{hour:"2-digit", minute:"2-digit"});
+const BYE = "xxxxx";
+let DATA = {matches: [], standings: []}, TEAM = "ASCA 1";
+try { const t = localStorage.getItem("asca-team"); if (t) TEAM = t; } catch(e){}
+
+function daysUntil(d){
+  const a = new Date(); a.setHours(0,0,0,0); const b = new Date(d); b.setHours(0,0,0,0);
+  return Math.round((b - a) / 864e5);
+}
+function untilLabel(d){
+  const n = daysUntil(d);
+  return n <= 0 ? "Aujourd'hui" : n === 1 ? "Demain" : `Dans ${n} jours`;
+}
+function teamLine(m){
+  const h = m.home === TEAM ? `<span class="me">${esc(m.home)}</span>` : esc(m.home);
+  const a = m.away === TEAM ? `<span class="me">${esc(m.away)}</span>` : esc(m.away);
+  return `${h} <span class="sep">vs</span> ${a}`;
+}
+function outcome(m){
+  if (!m.played) return null;
+  const mine = m.home === TEAM ? m.sh : m.sa, theirs = m.home === TEAM ? m.sa : m.sh;
+  return {mine, theirs, win: mine > theirs};
+}
+function matchCard(m){
+  const bye = m.home === BYE || m.away === BYE;
+  const home = m.home === TEAM;
+  const dateCol = `<div class="date"><span class="d">${esc(fmtDay(m.date))}</span><span class="t">${bye ? "" : esc(fmtTime(m.date))}</span></div>`;
+  if (bye){
+    return `<article class="match exempt">${dateCol}<div class="body"><div class="teams">Exempt</div><div class="sub"><span>Journée ${m.journee ?? "–"}</span><span>Pas de match pour ${esc(TEAM)}</span></div></div><div class="res"><span class="pill E">Exempt</span></div></article>`;
+  }
+  const o = outcome(m);
+  let res;
+  if (o){
+    res = `<span class="score">${o.mine}–${o.theirs}</span><span class="pill ${o.win ? "V" : "D"}">${o.win ? "Victoire" : "Défaite"}</span>`;
+  } else if (m.date < new Date()){
+    res = `<span class="pill W">Score en attente</span>`;
+  } else {
+    res = `<span class="pill A">${esc(untilLabel(m.date))}</span>`;
+  }
+  const sub = [`<span class="tag">${home ? "Domicile" : "Extérieur"}</span>`, `<span>Journée ${m.journee ?? "–"}</span>`];
+  if (m.venue) sub.push(`<span>${esc(m.venue)}</span>`);
+  if (o && m.points) sub.push(`<span>Points ${esc(m.points)}</span>`);
+  return `<article class="match">${dateCol}<div class="body"><div class="teams">${teamLine(m)}</div><div class="sub">${sub.join("")}</div>${o && m.sets ? `<div class="sets">${esc(m.sets.replace(/:/g,"-"))}</div>` : ""}</div><div class="res">${res}</div></article>`;
+}
+
+function render(){
+  const {matches, standings} = DATA;
+  const teams = standings.length ? standings.map(s => s.team)
+    : [...new Set(matches.flatMap(m => [m.home, m.away]))].filter(t => t !== BYE).sort();
+  if (!teams.includes(TEAM) && teams.length) TEAM = teams.includes("ASCA 1") ? "ASCA 1" : teams[0];
+  $("teamSel").innerHTML = teams.map(t => `<option ${t === TEAM ? "selected" : ""}>${esc(t)}</option>`).join("");
+  $("teamTitle").textContent = TEAM;
+
+  const mine = matches.filter(m => m.home === TEAM || m.away === TEAM).sort((a,b) => a.date - b.date);
+  const now = new Date();
+  const past = mine.filter(m => m.played || (m.date < now && m.home !== BYE && m.away !== BYE)).reverse();
+  const upcoming = mine.filter(m => !m.played && m.date >= now);
+
+  const st = standings.find(s => s.team === TEAM);
+  const wins = mine.filter(m => outcome(m)?.win).length, losses = mine.filter(m => m.played && !outcome(m).win).length;
+  $("stats").innerHTML = [
+    st ? `<span class="stat"><b>${st.rank}e</b>sur ${standings.length}</span>` : "",
+    `<span class="stat"><b>${st ? st.pts : "–"}</b>pts</span>`,
+    `<span class="stat"><b>${wins}</b>V · <b>${losses}</b>D</span>`,
+    st ? `<span class="stat"><b>${st.setP}-${st.setC}</b>sets</span>` : "",
+    `<span class="stat"><b>${upcoming.filter(m => m.home !== BYE && m.away !== BYE).length}</b>matchs à jouer</span>`
+  ].join("");
+
+  const next = upcoming.find(m => m.home !== BYE && m.away !== BYE);
+  $("nextSec").innerHTML = next ? `<div class="next">
+      <div class="eyebrow">Prochain match · Journée ${next.journee ?? "–"} · ${next.home === TEAM ? "Domicile" : "Extérieur"}</div>
+      <div class="vs"><span>${esc(next.home)}</span><span class="x">vs</span><span>${esc(next.away)}</span></div>
+      <div class="meta"><span class="when">${esc(fmtLong(next.date))} · ${esc(fmtTime(next.date))}</span>${next.venue ? `<span>${esc(next.venue)}</span>` : ""}<span class="count">${esc(untilLabel(next.date))}</span></div>
+    </div>` : "";
+
+  const up = upcoming.filter(m => m !== next);
+  $("upcoming").innerHTML = up.length ? up.map(matchCard).join("") : `<p class="empty">Aucun autre match programmé.</p>`;
+  $("upCount").textContent = upcoming.filter(m => m.home !== BYE && m.away !== BYE).length + " match(s)";
+  $("past").innerHTML = past.length ? past.map(matchCard).join("") : `<p class="empty">Aucun match joué pour l'instant.</p>`;
+  $("pastCount").textContent = past.filter(m => m.played).length + " joué(s)";
+
+  $("standings").innerHTML = standings.map(s => `<tr class="${s.team === TEAM ? "me" : ""}"><td>${s.rank}</td><td>${esc(s.team)}</td><td class="pts">${s.pts}</td><td>${s.j}</td><td>${s.g}</td><td>${s.p}</td><td>${s.setP}-${s.setC}</td><td>${s.ptP}-${s.ptC}</td></tr>`).join("");
+}
+
+$("teamSel").addEventListener("change", e => {
+  TEAM = e.target.value; try { localStorage.setItem("asca-team", TEAM); } catch(err){}
+  render();
+});
+
+
+/* ---------- Chargement de data.json (mis à jour par GitHub Actions) ---------- */
+function setSync(kind, text){ $("syncTxt").innerHTML = `<span class="dot ${kind}"></span>${esc(text)}`; }
+function toDate(s){ const [d, t = "00:00"] = s.split("T"); const [y, m, j] = d.split("-").map(Number); const [h, mi] = t.split(":").map(Number); return new Date(y, m - 1, j, h, mi); }
+let lastUpdated = null;
+async function load(){
+  try {
+    const r = await fetch("data.json?t=" + Date.now(), {cache: "no-store"});
+    if (!r.ok) throw new Error(r.status);
+    const j = await r.json();
+    DATA = {standings: j.standings || [], matches: (j.matches || []).map(m => ({...m, date: toDate(m.date)}))};
+    lastUpdated = j.updated ? new Date(j.updated) : null;
+    render();
+    setSync("live", lastUpdated
+      ? `Dernière modification du calendrier : ${lastUpdated.toLocaleDateString("fr-FR")} à ${fmtTime(lastUpdated)}`
+      : "Calendrier chargé");
+  } catch(e){
+    setSync("warn", DATA.matches.length ? "Impossible de recharger le calendrier · dernières données conservées" : "Impossible de charger le calendrier. Réessaie dans quelques minutes.");
+  }
+}
+$("refreshBtn").hidden = false;
+$("refreshBtn").textContent = "Recharger";
+$("refreshBtn").onclick = load;
+load();
+setInterval(load, 10 * 60 * 1000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
+</script>
+</body>
+</html>
