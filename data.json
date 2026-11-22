@@ -10,6 +10,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -23,6 +24,7 @@
    "played": true,
    "sh": 3,
    "sa": 1,
+   "forfeit": null,
    "sets": "20:25, 25:14, 25:15, 25:21",
    "points": "095-075",
    "venue": ""
@@ -36,6 +38,7 @@
    "played": true,
    "sh": 3,
    "sa": 0,
+   "forfeit": null,
    "sets": "25:17, 25:22, 25:20",
    "points": "075-059",
    "venue": ""
@@ -49,6 +52,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -62,6 +66,7 @@
    "played": true,
    "sh": 2,
    "sa": 3,
+   "forfeit": null,
    "sets": "17:25, 30:32, 25:23, 25:23, 9:15",
    "points": "106-118",
    "venue": ""
@@ -75,6 +80,7 @@
    "played": true,
    "sh": 0,
    "sa": 3,
+   "forfeit": null,
    "sets": "19:25, 15:25, 20:25",
    "points": "054-075",
    "venue": ""
@@ -88,6 +94,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -101,6 +108,7 @@
    "played": true,
    "sh": 0,
    "sa": 3,
+   "forfeit": null,
    "sets": "16:25, 19:25, 9:25",
    "points": "044-075",
    "venue": ""
@@ -114,6 +122,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE COUBERTIN"
@@ -127,6 +136,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -140,6 +150,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE DE L'ANTONIÈRE"
@@ -153,6 +164,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "SALLE ROBERT BURON"
@@ -166,6 +178,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -176,12 +189,13 @@
    "date": "2026-11-21T16:00",
    "home": "ETINCELLE MAYENNE",
    "away": "ASCA 1",
-   "played": false,
-   "sh": null,
-   "sa": null,
-   "sets": "",
-   "points": "",
-   "venue": "SALLE ROBERT BURON"
+   "played": true,
+   "sh": 3,
+   "sa": 0,
+   "forfeit": "away",
+   "sets": "25:0, 25:0, 25:0",
+   "points": "075-000",
+   "venue": ""
   },
   {
    "code": "18MA015",
@@ -192,6 +206,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE CAMUS"
@@ -205,6 +220,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -218,6 +234,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "SALLE ROBERT BURON"
@@ -231,6 +248,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "COMPLEXE SPORTIF RAOUL ROUSSEL"
@@ -244,6 +262,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -257,6 +276,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE COUBERTIN"
@@ -270,6 +290,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE CAMUS"
@@ -283,6 +304,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -296,6 +318,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE CAMUS"
@@ -309,6 +332,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE DE L'ANTONIÈRE"
@@ -322,6 +346,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -335,6 +360,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE CAMUS"
@@ -348,6 +374,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE COUBERTIN"
@@ -361,6 +388,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -374,6 +402,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "SALLE ROBERT BURON"
@@ -387,6 +416,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE COUBERTIN"
@@ -400,6 +430,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -413,6 +444,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE COUBERTIN"
@@ -426,6 +458,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE DE L'ANTONIÈRE"
@@ -439,6 +472,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -452,6 +486,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE COUBERTIN"
@@ -465,6 +500,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "SALLE ROBERT BURON"
@@ -478,6 +514,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -491,6 +528,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE COUBERTIN"
@@ -504,6 +542,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE COUBERTIN"
@@ -517,6 +556,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -530,6 +570,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE DE L'ANTONIÈRE"
@@ -543,6 +584,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "SALLE ROBERT BURON"
@@ -556,6 +598,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": ""
@@ -569,6 +612,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE DE L'ANTONIÈRE"
@@ -582,6 +626,7 @@
    "played": false,
    "sh": null,
    "sa": null,
+   "forfeit": null,
    "sets": "",
    "points": "",
    "venue": "GYMNASE CAMUS"
@@ -627,27 +672,27 @@
   {
    "rank": 4,
    "team": "ETINCELLE MAYENNE",
-   "pts": 0,
-   "j": 2,
-   "g": 0,
+   "pts": 3,
+   "j": 3,
+   "g": 1,
    "p": 2,
-   "setP": 1,
+   "setP": 4,
    "setC": 6,
-   "ptP": 129,
+   "ptP": 204,
    "ptC": 170
   },
   {
    "rank": 5,
    "team": "ASCA 1",
-   "pts": 0,
-   "j": 1,
+   "pts": -1,
+   "j": 2,
    "g": 0,
-   "p": 1,
+   "p": 2,
    "setP": 0,
-   "setC": 3,
+   "setC": 6,
    "ptP": 59,
-   "ptC": 75
+   "ptC": 150
   }
  ],
- "updated": "2026-11-15T21:16:58+00:00"
+ "updated": "2026-11-22T17:53:50+00:00"
 }

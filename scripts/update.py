@@ -73,12 +73,17 @@ def parse(html):
             hh, mm = (c[2] or "00:00").split(":")
             s1 = c[6] if len(c) > 6 else ""
             s2 = c[7] if len(c) > 7 else ""
-            played = s1.isdigit() and s2.isdigit()
+            # Une lettre (P = pénalité, F = forfait...) à la place d'un score = forfait de cette équipe
+            forf = re.compile(r"^[A-Z]{1,3}$")
+            played = (s1.isdigit() and (s2.isdigit() or bool(forf.match(s2)))) or (s2.isdigit() and bool(forf.match(s1)))
+            forfeit = "home" if played and forf.match(s1) else "away" if played and forf.match(s2) else None
             matches.append({
                 "code": c[0], "journee": journee,
                 "date": f"{2000 + y:04d}-{mo:02d}-{d:02d}T{int(hh):02d}:{int(mm):02d}",
                 "home": c[3], "away": c[5], "played": played,
-                "sh": int(s1) if played else None, "sa": int(s2) if played else None,
+                "sh": (int(s1) if s1.isdigit() else 0) if played else None,
+                "sa": (int(s2) if s2.isdigit() else 0) if played else None,
+                "forfeit": forfeit,
                 "sets": (c[8] if len(c) > 8 else "") if played else "",
                 "points": (c[9] if len(c) > 9 else "") if played else "",
                 "venue": "" if played else (c[7] if len(c) > 7 else ""),

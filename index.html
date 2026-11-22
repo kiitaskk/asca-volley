@@ -189,7 +189,8 @@ function teamLine(m){
 function outcome(m){
   if (!m.played) return null;
   const mine = m.home === TEAM ? m.sh : m.sa, theirs = m.home === TEAM ? m.sa : m.sh;
-  return {mine, theirs, win: mine > theirs};
+  const myForfeit = m.forfeit && (m.forfeit === "home") === (m.home === TEAM);
+  return {mine, theirs, win: m.forfeit ? !myForfeit : mine > theirs, forfeit: m.forfeit ? (myForfeit ? "mine" : "theirs") : null};
 }
 function matchCard(m){
   const bye = m.home === BYE || m.away === BYE;
@@ -201,7 +202,8 @@ function matchCard(m){
   const o = outcome(m);
   let res;
   if (o){
-    res = `<span class="score">${o.mine}–${o.theirs}</span><span class="pill ${o.win ? "V" : "D"}">${o.win ? "Victoire" : "Défaite"}</span>`;
+    const label = o.forfeit === "mine" ? "Forfait" : o.forfeit === "theirs" ? "Victoire (forfait adverse)" : o.win ? "Victoire" : "Défaite";
+    res = `<span class="score">${o.mine}–${o.theirs}</span><span class="pill ${o.win ? "V" : "D"}">${label}</span>`;
   } else if (m.date < new Date()){
     res = `<span class="pill W">Score en attente</span>`;
   } else {
